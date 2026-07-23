@@ -8,6 +8,8 @@ import Footer from './components/Footer'
 import ScrollReveal from './components/ScrollReveal'
 import { supabase } from '@/lib/supabase'
 
+export const revalidate = 0
+
 async function getSiteContent() {
   const { data } = await supabase.from('site_content').select('*')
   const content = {}
