@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase'
+export const revalidate = 0
 
 async function getMenuData() {
   const { data: categories } = await supabase
