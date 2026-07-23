@@ -45,7 +45,7 @@ export default function Navbar() {
         <li><a href="/#events" className={linkClass('events')}>Events</a></li>
         <li><a href="/#contact" className={linkClass('contact')}>Contact</a></li>
         <li><ThemeSwitcher /></li>
-        <li><Link href="/admin/login" className="hover:text-amber-400 transition text-xs opacity-70 whitespace-nowrap">Admin</Link></li>
+        <li><Link href="/admin/login" className="hover:text-amber-400 transition text-xs opacity-70 whitespace-nowrap">Login</Link></li>
       </ul>
 
       <a href="/#reservations" className="hidden lg:inline-block bg-amber-600 hover:bg-amber-700 transition px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap">
@@ -67,7 +67,7 @@ export default function Navbar() {
           <li><a href="/#events" onClick={closeMenu} className={linkClass('events')}>Events</a></li>
           <li><a href="/#contact" onClick={closeMenu} className={linkClass('contact')}>Contact</a></li>
           <li><ThemeSwitcher /></li>
-          <li><Link href="/admin/login" onClick={closeMenu} className="text-xs opacity-70">Admin</Link></li>
+          <li><Link href="/admin/login" onClick={closeMenu} className="text-xs opacity-70">Login</Link></li>
           <li>
             <a href="/#reservations" onClick={closeMenu} className="inline-block bg-amber-600 hover:bg-amber-700 transition px-5 py-2 rounded-full text-sm font-semibold">
               Book a Table
