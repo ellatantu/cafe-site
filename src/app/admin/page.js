@@ -48,22 +48,21 @@ export default function AdminDashboard() {
   return (
     <div className="dark:bg-stone-900 min-h-screen">
       <div className="p-6 max-w-3xl mx-auto pt-24">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
           <h1 className="font-serif-display text-3xl font-bold dark:text-white">Admin Dashboard</h1>
-          <div className="flex gap-4 items-center">
-            <Link href="/admin/add-item" className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
-              + Add Item
-            </Link>
-            <Link href="/admin/reservations" className="text-sm text-gray-600 dark:text-gray-300 hover:underline">
+            <div className="flex flex-wrap gap-4 items-center">
+              <Link href="/admin/add-item" className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
+                + Add Item
+              </Link>
+              <Link href="/admin/reservations" className="text-sm text-gray-600 dark:text-gray-300 hover:underline">
               Reservations
-            </Link>
+             </Link>
             <Link href="/admin/content" className="text-sm text-gray-600 dark:text-gray-300 hover:underline">
               Edit Content
             </Link>
             <button onClick={handleLogout} className="text-red-600 font-semibold hover:underline">Log Out</button>
           </div>
         </div>
-
         <h2 className="text-xl font-bold mb-4 dark:text-white">Menu Items</h2>
         <div className="flex flex-col gap-2">
           {items.map((item) => (
