@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
-import { getSession, logout } from '@/lib/auth'
+import { getSession } from '@/lib/auth'
 import ConfirmModal from '../components/ConfirmModal'
 
 export default function AdminDashboard() {
@@ -32,11 +32,6 @@ export default function AdminDashboard() {
     setItems(data || [])
   }
 
-  const handleLogout = async () => {
-    await logout()
-    router.push('/admin/login')
-  }
-
   const confirmDelete = async () => {
     await supabase.from('menu_items').delete().eq('id', pendingDelete)
     setPendingDelete(null)
@@ -50,19 +45,19 @@ export default function AdminDashboard() {
       <div className="p-6 max-w-3xl mx-auto pt-24">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
           <h1 className="font-serif-display text-3xl font-bold dark:text-white">Admin Dashboard</h1>
-            <div className="flex flex-wrap gap-4 items-center">
-              <Link href="/admin/add-item" className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
-                + Add Item
-              </Link>
-              <Link href="/admin/reservations" className="text-sm text-gray-600 dark:text-gray-300 hover:underline">
+          <div className="flex flex-wrap gap-4 items-center">
+            <Link href="/admin/add-item" className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
+              + Add Item
+            </Link>
+            <Link href="/admin/reservations" className="text-sm text-gray-600 dark:text-gray-300 hover:underline">
               Reservations
-             </Link>
+            </Link>
             <Link href="/admin/content" className="text-sm text-gray-600 dark:text-gray-300 hover:underline">
               Edit Content
             </Link>
-            <button onClick={handleLogout} className="text-red-600 font-semibold hover:underline">Log Out</button>
           </div>
         </div>
+
         <h2 className="text-xl font-bold mb-4 dark:text-white">Menu Items</h2>
         <div className="flex flex-col gap-2">
           {items.map((item) => (
