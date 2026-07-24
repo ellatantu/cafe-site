@@ -2,13 +2,32 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import ThemeSwitcher from './ThemeSwitcher'
+import { getSession, logout } from '@/lib/auth'
 
 const sections = ['menu', 'about', 'reservations', 'faq', 'events', 'contact']
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
+  const [loggedIn, setLoggedIn] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    checkLogin()
+  }, [])
+
+  const checkLogin = async () => {
+    const session = await getSession()
+    setLoggedIn(!!session)
+  }
+
+  const handleLogout = async () => {
+    await logout()
+    setLoggedIn(false)
+    router.push('/')
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,7 +64,14 @@ export default function Navbar() {
         <li><a href="/#events" className={linkClass('events')}>Events</a></li>
         <li><a href="/#contact" className={linkClass('contact')}>Contact</a></li>
         <li><ThemeSwitcher /></li>
-        <li><Link href="/admin/login" className="hover:text-amber-400 transition text-xs opacity-70 whitespace-nowrap">Login</Link></li>
+        {loggedIn ? (
+          <>
+            <li><Link href="/admin" className="hover:text-amber-400 transition text-xs opacity-70 whitespace-nowrap">Dashboard</Link></li>
+            <li><button onClick={handleLogout} className="text-red-400 font-semibold hover:underline text-xs whitespace-nowrap">Logout</button></li>
+          </>
+        ) : (
+          <li><Link href="/admin/login" className="hover:text-amber-400 transition text-xs opacity-70 whitespace-nowrap">Login</Link></li>
+        )}
       </ul>
 
       <a href="/#reservations" className="hidden lg:inline-block bg-amber-600 hover:bg-amber-700 transition px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap">
@@ -67,7 +93,14 @@ export default function Navbar() {
           <li><a href="/#events" onClick={closeMenu} className={linkClass('events')}>Events</a></li>
           <li><a href="/#contact" onClick={closeMenu} className={linkClass('contact')}>Contact</a></li>
           <li><ThemeSwitcher /></li>
-          <li><Link href="/admin/login" onClick={closeMenu} className="text-xs opacity-70">Login</Link></li>
+          {loggedIn ? (
+            <>
+              <li><Link href="/admin" onClick={closeMenu} className="text-xs opacity-70">Dashboard</Link></li>
+              <li><button onClick={() => { handleLogout(); closeMenu() }} className="text-red-400 text-xs font-semibold text-left">Logout</button></li>
+            </>
+          ) : (
+            <li><Link href="/admin/login" onClick={closeMenu} className="text-xs opacity-70">Login</Link></li>
+          )}
           <li>
             <a href="/#reservations" onClick={closeMenu} className="inline-block bg-amber-600 hover:bg-amber-700 transition px-5 py-2 rounded-full text-sm font-semibold">
               Book a Table
