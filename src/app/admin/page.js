@@ -66,7 +66,7 @@ export default function AdminDashboard() {
         <h2 className="text-xl font-bold mb-4 dark:text-white">Menu Items</h2>
         <div className="flex flex-col gap-2">
           {items.map((item) => (
-            <div key={item.id} className="flex justify-between items-center border dark:border-stone-700 rounded-xl px-5 py-3 bg-white dark:bg-stone-800 dark:text-white">
+            <div key={item.id} className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 border dark:border-stone-700 rounded-xl px-5 py-3 bg-white dark:bg-stone-800 dark:text-white">
               <div>
                 <span className="font-semibold">{item.name}</span>
                 <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">({item.categories?.name})</span>
